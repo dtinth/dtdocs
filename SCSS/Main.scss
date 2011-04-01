@@ -1,0 +1,85 @@
+
+@import "compass";
+
+.dt-typography {
+	p, ul, ol, pre {
+		margin: 1em 0;
+		padding: 0;
+	}
+	ul, ol {
+		ul, ol {
+			margin: 0.2em 0;
+		}
+	}
+	h1, h2 {
+		margin: 0.5em 0;
+	}
+	h2 {
+		margin-top: 2em;
+		padding-top: 1.5em;
+	}
+	ul, ol, pre {
+		padding-left: 2.5em;
+	}
+}
+
+.theme-base {
+	@extend .dt-typography;
+	body {
+		font: 10pt/1.8 Georgia, Verdana, Tahoma, sans-serif;
+		text-align: center;
+		margin: 0;
+		padding: 0;
+	}
+	#dtdocs-content {
+		margin: 0 auto;
+		padding-bottom: 5em;
+		width: 720px;
+		text-align: left;
+	}
+	#dtdocs-title {
+		font-size: 10pt;
+		line-height: 1.03em;
+		text-align: left;
+		padding: 0 5px;
+		#dtdocs-breadcrumb {
+			float: right;
+		}
+		.name, .separator, strong, a {
+			@include inline-block;
+		}
+		.name, strong, a {
+			padding: 5px 7px;
+		}
+		.name {
+			font-weight: bold;
+		}
+	}
+	#dtdocs-footer {
+		padding: 20px;
+	}
+	.toc {
+		padding: 2ex 0.5ex;
+		width: 50%;
+		li {
+			line-height: 1.5;
+		}
+		ul, ol, li {
+			margin-top: 0.8ex;
+			margin-bottom: 0.8ex;
+		}
+	}
+	h1 {
+		font: bold 30pt/1.2 Free Sans, FreeSans, Helvetica, Arial, sans-serif;
+		text-align: center;
+	}
+	h2 {
+		font-size: 16pt;
+	}
+	pre, code {
+		font-family: Consolas, Monaco, Droid Sans Mono, Bitstream Vera Sans Mono, DejaVu Sans Mono, Courier New, sans-serif;
+	}
+}
+
+@import "Themes/Default";
+@import "Themes/thaiWitter";

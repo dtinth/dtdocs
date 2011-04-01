@@ -1,0 +1,5 @@
+syntax: glob
+*.swo
+*.swp
+.htaccess
+Compass/.sass-cache

@@ -1,0 +1,59 @@
+.theme-thaiWitter {
+	@extend .theme-base;
+	body {
+		background: #353433;
+		color: #e9e8e7;
+		font: 10.5pt/1.8 Verdana, Tahoma, sans-serif;
+	}
+	a {
+		color: #ffb;
+	}
+	#dtdocs-title {
+		background: #090807;
+		border-bottom: 1px solid #454443;
+		.separator {
+			color: #b8b6b5;
+		}
+		.name {
+			color: #d7fc70;
+		}
+		a {
+			text-decoration: none;
+			color: #e9e8e7;
+			&:hover {
+				background: #454443;
+			}
+		}
+	}
+	#dtdocs-footer {
+		color: #555453;
+		a {
+			color: #656463;
+		}
+	}
+	.toc {
+		background: #252423;
+		border: 1px solid #454443;
+	}
+	h1 {
+		color: #8b8685;
+	}
+	h2 {
+		color: #d7fc70;
+		border-top: 2px solid mix(#8b8685, #353433, 30%);
+	}
+	code, pre {
+		color: #80ef50;
+	}
+	span.key {
+		padding: 2px 3px;
+		background: #454443;
+		border: 1px solid #555453;
+		border-width: 1px 2px 2px 1px;
+		font-size: 0.9em;
+	}
+	strong {
+		color: #bbeeff;
+	}
+}
+

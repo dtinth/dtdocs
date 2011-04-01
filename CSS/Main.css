@@ -1,0 +1,124 @@
+@charset "UTF-8";
+.dt-typography p, .theme-base p, .theme-default p, .theme-thaiWitter p, .dt-typography ul, .theme-base ul, .theme-default ul, .theme-thaiWitter ul, .dt-typography ol, .theme-base ol, .theme-default ol, .theme-thaiWitter ol, .dt-typography pre, .theme-base pre, .theme-default pre, .theme-thaiWitter pre {
+  margin: 1em 0;
+  padding: 0; }
+.dt-typography ul ul, .theme-base ul ul, .theme-default ul ul, .theme-thaiWitter ul ul, .dt-typography ul ol, .theme-base ul ol, .theme-default ul ol, .theme-thaiWitter ul ol, .dt-typography ol ul, .theme-base ol ul, .theme-default ol ul, .theme-thaiWitter ol ul, .dt-typography ol ol, .theme-base ol ol, .theme-default ol ol, .theme-thaiWitter ol ol {
+  margin: 0.2em 0; }
+.dt-typography h1, .theme-base h1, .theme-default h1, .theme-thaiWitter h1, .dt-typography h2, .theme-base h2, .theme-default h2, .theme-thaiWitter h2 {
+  margin: 0.5em 0; }
+.dt-typography h2, .theme-base h2, .theme-default h2, .theme-thaiWitter h2 {
+  margin-top: 2em;
+  padding-top: 1.5em; }
+.dt-typography ul, .theme-base ul, .theme-default ul, .theme-thaiWitter ul, .dt-typography ol, .theme-base ol, .theme-default ol, .theme-thaiWitter ol, .dt-typography pre, .theme-base pre, .theme-default pre, .theme-thaiWitter pre {
+  padding-left: 2.5em; }
+
+.theme-base body, .theme-default body, .theme-thaiWitter body {
+  font: 10pt/1.8 Georgia, Verdana, Tahoma, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0; }
+.theme-base #dtdocs-content, .theme-default #dtdocs-content, .theme-thaiWitter #dtdocs-content {
+  margin: 0 auto;
+  padding-bottom: 5em;
+  width: 720px;
+  text-align: left; }
+.theme-base #dtdocs-title, .theme-default #dtdocs-title, .theme-thaiWitter #dtdocs-title {
+  font-size: 10pt;
+  line-height: 1.03em;
+  text-align: left;
+  padding: 0 5px; }
+  .theme-base #dtdocs-title #dtdocs-breadcrumb, .theme-default #dtdocs-title #dtdocs-breadcrumb, .theme-thaiWitter #dtdocs-title #dtdocs-breadcrumb {
+    float: right; }
+  .theme-base #dtdocs-title .name, .theme-default #dtdocs-title .name, .theme-thaiWitter #dtdocs-title .name, .theme-base #dtdocs-title .separator, .theme-default #dtdocs-title .separator, .theme-thaiWitter #dtdocs-title .separator, .theme-base #dtdocs-title strong, .theme-default #dtdocs-title strong, .theme-thaiWitter #dtdocs-title strong, .theme-base #dtdocs-title a, .theme-default #dtdocs-title a, .theme-thaiWitter #dtdocs-title a {
+    display: -moz-inline-box;
+    -moz-box-orient: vertical;
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto; }
+    .theme-base #dtdocs-title .name, .theme-default #dtdocs-title .name, .theme-thaiWitter #dtdocs-title .name, .theme-base #dtdocs-title .separator, .theme-default #dtdocs-title .separator, .theme-thaiWitter #dtdocs-title .separator, .theme-base #dtdocs-title strong, .theme-default #dtdocs-title strong, .theme-thaiWitter #dtdocs-title strong, .theme-base #dtdocs-title a, .theme-default #dtdocs-title a, .theme-thaiWitter #dtdocs-title a {
+      *display: inline; }
+  .theme-base #dtdocs-title .name, .theme-default #dtdocs-title .name, .theme-thaiWitter #dtdocs-title .name, .theme-base #dtdocs-title strong, .theme-default #dtdocs-title strong, .theme-thaiWitter #dtdocs-title strong, .theme-base #dtdocs-title a, .theme-default #dtdocs-title a, .theme-thaiWitter #dtdocs-title a {
+    padding: 5px 7px; }
+  .theme-base #dtdocs-title .name, .theme-default #dtdocs-title .name, .theme-thaiWitter #dtdocs-title .name {
+    font-weight: bold; }
+.theme-base #dtdocs-footer, .theme-default #dtdocs-footer, .theme-thaiWitter #dtdocs-footer {
+  padding: 20px; }
+.theme-base .toc, .theme-default .toc, .theme-thaiWitter .toc {
+  padding: 2ex 0.5ex;
+  width: 50%; }
+  .theme-base .toc li, .theme-default .toc li, .theme-thaiWitter .toc li {
+    line-height: 1.5; }
+  .theme-base .toc ul, .theme-default .toc ul, .theme-thaiWitter .toc ul, .theme-base .toc ol, .theme-default .toc ol, .theme-thaiWitter .toc ol, .theme-base .toc li, .theme-default .toc li, .theme-thaiWitter .toc li {
+    margin-top: 0.8ex;
+    margin-bottom: 0.8ex; }
+.theme-base h1, .theme-default h1, .theme-thaiWitter h1 {
+  font: bold 30pt/1.2 Free Sans, FreeSans, Helvetica, Arial, sans-serif;
+  text-align: center; }
+.theme-base h2, .theme-default h2, .theme-thaiWitter h2 {
+  font-size: 16pt; }
+.theme-base pre, .theme-default pre, .theme-thaiWitter pre, .theme-base code, .theme-default code, .theme-thaiWitter code {
+  font-family: Consolas, Monaco, Droid Sans Mono, Bitstream Vera Sans Mono, DejaVu Sans Mono, Courier New, sans-serif; }
+
+.theme-default body {
+  background: #d9d5d0;
+  color: #333;
+  text-shadow: 0 1px 0 #fff;
+  font-size: 12.5pt; }
+.theme-default a {
+  color: #ba1800; }
+.theme-default #dtdocs-title {
+  background: #fff;
+  border-bottom: 1px solid #CFCBC6; }
+.theme-default #dtdocs-footer {
+  color: #8b8685; }
+  .theme-default #dtdocs-footer a {
+    color: #966a63; }
+.theme-default .toc {
+  background: #EDE9E5;
+  border: 1px solid #CFCBC6; }
+.theme-default h1 {
+  color: #8b8685; }
+.theme-default h2 {
+  color: #9053A7;
+  border-top: 2px solid #efeeec; }
+
+.theme-thaiWitter body {
+  background: #353433;
+  color: #e9e8e7;
+  font: 10.5pt/1.8 Verdana, Tahoma, sans-serif; }
+.theme-thaiWitter a {
+  color: #ffb; }
+.theme-thaiWitter #dtdocs-title {
+  background: #090807;
+  border-bottom: 1px solid #454443; }
+  .theme-thaiWitter #dtdocs-title .separator {
+    color: #b8b6b5; }
+  .theme-thaiWitter #dtdocs-title .name {
+    color: #d7fc70; }
+  .theme-thaiWitter #dtdocs-title a {
+    text-decoration: none;
+    color: #e9e8e7; }
+    .theme-thaiWitter #dtdocs-title a:hover {
+      background: #454443; }
+.theme-thaiWitter #dtdocs-footer {
+  color: #555453; }
+  .theme-thaiWitter #dtdocs-footer a {
+    color: #656463; }
+.theme-thaiWitter .toc {
+  background: #252423;
+  border: 1px solid #454443; }
+.theme-thaiWitter h1 {
+  color: #8b8685; }
+.theme-thaiWitter h2 {
+  color: #d7fc70;
+  border-top: 2px solid #4e4c4b; }
+.theme-thaiWitter code, .theme-thaiWitter pre {
+  color: #80ef50; }
+.theme-thaiWitter span.key {
+  padding: 2px 3px;
+  background: #454443;
+  border: 1px solid #555453;
+  border-width: 1px 2px 2px 1px;
+  font-size: 0.9em; }
+.theme-thaiWitter strong {
+  color: #bbeeff; }

@@ -1,0 +1,38 @@
+.theme-default {
+	
+	$bg: #D9D5D0;
+	$link: #BA1800;
+
+	@extend .theme-base;
+	body {
+		background: $bg;
+		color: #333;
+		text-shadow: 0 1px 0 #fff;
+		font-size: 12.5pt;
+	}
+	a {
+		color: $link;
+	}
+	#dtdocs-title {
+		background: #fff;
+		border-bottom: 1px solid #CFCBC6;
+	}
+	#dtdocs-footer {
+		color: #8b8685;
+		a {
+			color: mix($link, #8b8685, 25%);
+		}
+	}
+	.toc {
+		background: #EDE9E5;
+		border: 1px solid #CFCBC6;
+	}
+	h1 {
+		color: #8b8685;
+	}
+	h2 {
+		color: #9053A7;
+		border-top: 2px solid mix($bg, #fff, 40%);
+	}
+}
+
