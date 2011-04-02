@@ -4,3 +4,7 @@ define('DATA_DIR', '../data');
 define('URL_REWRITTEN', true);
 define('URL_BASE', substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/')));
 define('IMAGE_BASE', URL_BASE . '/Images');
+
+function IMAGE_URL($name) {
+	return IMAGE_BASE . '/' . $name;
+}

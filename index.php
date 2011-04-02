@@ -414,7 +414,7 @@ class PageContentRenderer {
 		if (!empty($match[2])) {
 			$alt = $match[2];
 		}
-		return '<img' . a('class', 'image') . a('src', IMAGE_BASE . '/' . $match[1]) . a('alt', $alt) . '>';
+		return '<img' . a('class', 'image') . a('src', IMAGE_URL($match[1])) . a('alt', $alt) . '>';
 	}
 
 	function process($text) {
