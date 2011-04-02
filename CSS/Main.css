@@ -51,6 +51,11 @@
   .theme-base .toc ul, .theme-default .toc ul, .theme-thaiWitter .toc ul, .theme-base .toc ol, .theme-default .toc ol, .theme-thaiWitter .toc ol, .theme-base .toc li, .theme-default .toc li, .theme-thaiWitter .toc li {
     margin-top: 0.8ex;
     margin-bottom: 0.8ex; }
+.theme-base .caption, .theme-default .caption, .theme-thaiWitter .caption {
+  text-align: center;
+  font-style: italic;
+  font-size: 0.9em;
+  margin-top: -1em; }
 .theme-base h1, .theme-default h1, .theme-thaiWitter h1 {
   font: bold 30pt/1.2 Free Sans, FreeSans, Helvetica, Arial, sans-serif;
   text-align: center; }
@@ -58,6 +63,9 @@
   font-size: 16pt; }
 .theme-base pre, .theme-default pre, .theme-thaiWitter pre, .theme-base code, .theme-default code, .theme-thaiWitter code {
   font-family: Consolas, Monaco, Droid Sans Mono, Bitstream Vera Sans Mono, DejaVu Sans Mono, Courier New, sans-serif; }
+.theme-base table, .theme-default table, .theme-thaiWitter table {
+  margin: 0 auto;
+  border-collapse: collapse; }
 
 .theme-default body {
   background: #d9d5d0;
@@ -107,6 +115,10 @@
 .theme-thaiWitter .toc {
   background: #252423;
   border: 1px solid #454443; }
+.theme-thaiWitter .image {
+  margin-left: 1px; }
+.theme-thaiWitter .caption {
+  color: #a7a3a2; }
 .theme-thaiWitter h1 {
   color: #8b8685; }
 .theme-thaiWitter h2 {
@@ -122,3 +134,10 @@
   font-size: 0.9em; }
 .theme-thaiWitter strong {
   color: #bbeeff; }
+.theme-thaiWitter table td, .theme-thaiWitter table th {
+  border: 1px solid #454443;
+  padding: 3px; }
+.theme-thaiWitter table .cat {
+  text-align: center;
+  background: #3c3b3a;
+  font-weight: bold; }

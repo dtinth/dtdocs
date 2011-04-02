@@ -69,6 +69,12 @@
 			margin-bottom: 0.8ex;
 		}
 	}
+	.caption {
+		text-align: center;
+		font-style: italic;
+		font-size: 0.9em;
+		margin-top: -1em;
+	}
 	h1 {
 		font: bold 30pt/1.2 Free Sans, FreeSans, Helvetica, Arial, sans-serif;
 		text-align: center;
@@ -78,6 +84,10 @@
 	}
 	pre, code {
 		font-family: Consolas, Monaco, Droid Sans Mono, Bitstream Vera Sans Mono, DejaVu Sans Mono, Courier New, sans-serif;
+	}
+	table {
+		margin: 0 auto;
+		border-collapse: collapse;
 	}
 }
 

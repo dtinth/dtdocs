@@ -2,4 +2,5 @@ syntax: glob
 *.swo
 *.swp
 .htaccess
+config.php
 Compass/.sass-cache

@@ -1,10 +1,7 @@
 <?php
 
 require 'markdown.inc';
-
-define('DATA_DIR', '../data');
-define('URL_REWRITTEN', true);
-define('URL_BASE', substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/')));
+require 'config.php';
 
 error_reporting(E_ALL);
 
@@ -216,7 +213,7 @@ class DtDOMUtil {
 		}
 		$tag = strtolower($node->nodeName);
 		$close = !in_array($tag, array(
-			'li', 'td'
+			'li', 'td', 'img', 'br', 'hr'
 		));
 		$newlines = in_array($tag, array(
 			'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
@@ -412,10 +409,19 @@ class PageContentRenderer {
 		return '<a href="' . h('https://twitter.com/' . substr($match[1], 1)) . '">' . $match[0] . '</a>';
 	}
 
+	function cb_image($match) {
+		$alt = $match[1];
+		if (!empty($match[2])) {
+			$alt = $match[2];
+		}
+		return '<img' . a('class', 'image') . a('src', IMAGE_BASE . '/' . $match[1]) . a('alt', $alt) . '>';
+	}
+
 	function process($text) {
 		
 		// simple processing!
-		$text = preg_replace_callback('~\[\[([a-zA-Z0-9\.#/]+)(?:\s+(.*?))?\]\]~si', array($this, 'cb_link'), $text);
+		$text = preg_replace_callback('~\[\[([a-zA-Z0-9\.#-/]+)(?:\s+(.*?))?\]\]~si', array($this, 'cb_link'), $text);
+		$text = preg_replace_callback('~\[\[Image:([^\s\]]+)(?:\s+(.*?))?\]\]~si', array($this, 'cb_image'), $text);
 		$text = preg_replace_callback('~\|([^\s\|]+)\|~si', array($this, 'cb_key'), $text);
 		$text = str_replace('{{toc}}', '<div id="dtdocs-toc" class="toc"></div>', $text);
 		$text = str_replace('{{beta}}', '<span class="beta">BETA</span>', $text);
@@ -557,4 +563,3 @@ $page = new Page(isset($_GET['page']) ? $_GET['page'] : '');
 $renderer = new PageRenderer($page);
 $renderer->render();
 
-?>
