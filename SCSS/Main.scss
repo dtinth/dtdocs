@@ -71,7 +71,7 @@
 				margin-bottom: 0.8ex;
 			}
 		}
-		.welcome {
+		.welcome, .center {
 			text-align: center;
 		}
 		.caption {
@@ -79,6 +79,15 @@
 			font-style: italic;
 			font-size: 0.9em;
 			margin-top: -1em;
+		}
+		.image {
+			margin-left: 1px;
+		}
+		.image-container {
+			text-align: center;
+			.image {
+				margin-left: 0;
+			}
 		}
 		h1 {
 			font: bold 30pt/1.2 Free Sans, FreeSans, Helvetica, Arial, sans-serif;
@@ -127,6 +136,9 @@
 			}
 			li {
 				margin-bottom: 1em;
+				li {
+					margin-bottom: 0;
+				}
 			}
 		}
 	}

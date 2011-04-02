@@ -137,7 +137,7 @@ class Page {
 			}
 		}
 		if ($target == '') {
-			return $this->name . $hash;
+			return new self($this->name . $hash);
 		}
 		$parts  = explode('/', $this->name);
 		$target = explode('/', $target);
@@ -217,7 +217,7 @@ class DtDOMUtil {
 		));
 		$newlines = in_array($tag, array(
 			'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-			'p', 'ul', 'ol', 'li'
+			'p', 'pre', 'ul', 'ol', 'li'
 		));
 		$newlines2 = in_array($tag, array(
 			'h1', 'h2', 'h3', 'h4', 'h5', 'h6'
@@ -325,19 +325,23 @@ class PageTreeTransformer {
 	}
 
 	function createToc($toc) {
-		$toc->appendChild($this->getToc()->render($this->doc));
+		$node = $toc->ownerDocument->createElement('div');
+		$node->setAttribute('class', 'toc');
+		$node->setAttribute('id', 'dtdocs-toc');
+		$node->appendChild($this->getToc()->render($this->doc));
+		$toc->parentNode->replaceChild($node, $toc);
 	}
 
 	function processClassId($node) {
 		if ($node->firstChild && $node->firstChild->nodeType == XML_TEXT_NODE) {
-			if (preg_match('~^\s*([#\.][a-zA-Z0-9\-_]+)*:\s~', $node->firstChild->nodeValue, $match)) {
+			if (preg_match('~^\s*((?:[#\.][a-zA-Z0-9\-_]+)+):\s~', $node->firstChild->nodeValue, $match)) {
 				$node->firstChild->nodeValue = substr($node->firstChild->nodeValue, strlen($match[0]));
 				$mode = null;
 				foreach (preg_split('~([#\.])~', $match[1], -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY) as $v) {
 					if ($v == '.') $mode = 'class';
 					else if ($v == '#') $mode = 'id';
 					else if ($mode == 'id') $node->setAttribute('id', $v);
-					else if ($mode == 'class') $node->setAttribute('class', $node->hasAttribute('class') ? $node->getAttibute('class') . ' ' . $v : $v);
+					else if ($mode == 'class') $node->setAttribute('class', $node->hasAttribute('class') && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' && $node->getAttribute('class') != '' ? $node->getAttribute('class') . ' ' . $v : $v);
 				}
 			}
 		}		
@@ -358,11 +362,11 @@ class PageTreeTransformer {
 			$image = $match['node'];
 			$img = $textnode->ownerDocument->createElement('img');
 			$img->setAttribute('src', IMAGE_URL($match[1][0]));
+			$img->setAttribute('class', 'image');
 			$img->setAttribute('alt', empty($match[2][0]) ? basename($match[1][0]) : $match[2][0]);
 			$image->parentNode->replaceChild($img, $image);
 		}
 	}
-
 
 	function replaceWikiLink($open, $close, $match) {
 		$frag = $open->ownerDocument->createDocumentFragment();
@@ -374,8 +378,9 @@ class PageTreeTransformer {
 		$replacement = $frag;
 		if (preg_match('~^[a-zA-Z0-9-#/\.]+$~', $title)) {
 			$page = $this->page->navigate($title);
-			if ($page->valid()) {
+			if ($page && $page->valid()) {
 				$replacement = $open->ownerDocument->createElement('a');
+				$replacement->setAttribute('class', 'page-link');
 				$replacement->setAttribute('href', $page->href());
 				$empty = true;
 				foreach ($frag->childNodes as $v) {
@@ -440,7 +445,7 @@ class PageTreeTransformer {
 		}
 
 		// create table of contents
-		foreach ($this->query('//div[@id="dtdocs-toc"][@class="toc"]') as $node) {
+		foreach ($this->query('//p[text()="{{toc}}"]') as $node) {
 			$this->createToc($node);
 			break;
 		}
@@ -449,13 +454,6 @@ class PageTreeTransformer {
 		foreach ($this->query('//a') as $node) {
 			if (!$node->hasAttribute('class')) {
 				$node->setAttribute('class', 'external');
-			}
-		}
-
-		// add class to image containers
-		foreach ($this->query('//*[self::p or self::li][img[@class="image"][not(preceding-sibling::*)][not(following-sibling::*)]]') as $node) {
-			if (!$node->hasAttribute('class')) {
-				$node->setAttribute('class', 'image-container');
 			}
 		}
 
@@ -473,6 +471,13 @@ class PageTreeTransformer {
 
 		// replace wiki links
 		$this->wikiLinks();
+
+		// add class to image containers
+		foreach ($this->query('//*[self::p or self::li][img[@class="image"][not(preceding-sibling::*)][not(following-sibling::*)]]') as $node) {
+			if (!$node->hasAttribute('class')) {
+				$node->setAttribute('class', 'image-container');
+			}
+		}
 
 	}
 
@@ -529,8 +534,6 @@ class PageContentRenderer {
 		
 		// simple processing!
 		$text = preg_replace_callback('~\|([^\s\|]+)\|~si', array($this, 'cb_key'), $text);
-		$text = str_replace('{{toc}}', '<div id="dtdocs-toc" class="toc"></div>', $text);
-		$text = str_replace('{{beta}}', '<span class="beta">BETA</span>', $text);
 
 		// markdown process!
 		$text = Markdown($text);

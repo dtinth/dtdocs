@@ -52,13 +52,19 @@
   .theme-base #dtdocs-content .toc ul, .theme-default #dtdocs-content .toc ul, .theme-thaiWitter #dtdocs-content .toc ul, .theme-base #dtdocs-content .toc ol, .theme-default #dtdocs-content .toc ol, .theme-thaiWitter #dtdocs-content .toc ol, .theme-base #dtdocs-content .toc li, .theme-default #dtdocs-content .toc li, .theme-thaiWitter #dtdocs-content .toc li {
     margin-top: 0.8ex;
     margin-bottom: 0.8ex; }
-.theme-base #dtdocs-content .welcome, .theme-default #dtdocs-content .welcome, .theme-thaiWitter #dtdocs-content .welcome {
+.theme-base #dtdocs-content .welcome, .theme-default #dtdocs-content .welcome, .theme-thaiWitter #dtdocs-content .welcome, .theme-base #dtdocs-content .center, .theme-default #dtdocs-content .center, .theme-thaiWitter #dtdocs-content .center {
   text-align: center; }
 .theme-base #dtdocs-content .caption, .theme-default #dtdocs-content .caption, .theme-thaiWitter #dtdocs-content .caption {
   text-align: center;
   font-style: italic;
   font-size: 0.9em;
   margin-top: -1em; }
+.theme-base #dtdocs-content .image, .theme-default #dtdocs-content .image, .theme-thaiWitter #dtdocs-content .image {
+  margin-left: 1px; }
+.theme-base #dtdocs-content .image-container, .theme-default #dtdocs-content .image-container, .theme-thaiWitter #dtdocs-content .image-container {
+  text-align: center; }
+  .theme-base #dtdocs-content .image-container .image, .theme-default #dtdocs-content .image-container .image, .theme-thaiWitter #dtdocs-content .image-container .image {
+    margin-left: 0; }
 .theme-base #dtdocs-content h1, .theme-default #dtdocs-content h1, .theme-thaiWitter #dtdocs-content h1 {
   font: bold 30pt/1.2 Free Sans, FreeSans, Helvetica, Arial, sans-serif;
   text-align: center; }
@@ -92,6 +98,8 @@
     font-size: 0.714em; }
   .theme-base #dtdocs-content .outline li, .theme-default #dtdocs-content .outline li, .theme-thaiWitter #dtdocs-content .outline li {
     margin-bottom: 1em; }
+    .theme-base #dtdocs-content .outline li li, .theme-default #dtdocs-content .outline li li, .theme-thaiWitter #dtdocs-content .outline li li {
+      margin-bottom: 0; }
 
 .theme-default body {
   background: #d9d5d0;
@@ -118,6 +126,12 @@
   border-top: 2px solid #efeeec; }
 .theme-default #dtdocs-content .smalltoc ul li a {
   color: #706d6d; }
+.theme-default #dtdocs-content pre, .theme-default #dtdocs-content code {
+  font-size: 0.85em;
+  color: #33a; }
+.theme-default #dtdocs-content code {
+  margin-left: 0.5ex;
+  margin-right: 0.5ex; }
 
 .theme-thaiWitter body {
   background: #353433;
@@ -145,8 +159,6 @@
 .theme-thaiWitter #dtdocs-content .toc {
   background: #252423;
   border: 1px solid #454443; }
-.theme-thaiWitter #dtdocs-content .image {
-  margin-left: 1px; }
 .theme-thaiWitter #dtdocs-content .caption {
   color: #a7a3a2; }
 .theme-thaiWitter #dtdocs-content h1 {

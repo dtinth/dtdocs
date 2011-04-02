@@ -41,6 +41,14 @@
 				color: mix(#8b8685, #555, 50%);
 			}
 		}
+		pre, code {
+			font-size: 0.85em;
+			color: #33a;
+		}
+		code {
+			margin-left: 0.5ex;
+			margin-right: 0.5ex;
+		}
 	}
 }
 
