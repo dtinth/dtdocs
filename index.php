@@ -247,6 +247,19 @@ class DtDOMUtil {
 		return $middle;
 	}
 
+	static function matchTextByRegex($pattern, DOMText &$node) {
+		$out = array();
+		if (preg_match_all($pattern, $node->nodeValue, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE)) {
+			foreach ($matches as $match) {
+				$start    = $match[0][1];
+				$end      = $start + strlen($match[0][0]);
+				$matched  = self::splitText($node, $start, $end, $offset);
+				$out[]    = $match + array('node' => $matched);
+			}
+		}
+		return $out;
+	}
+
 }
 
 class PageTreeTransformer {
@@ -331,41 +344,136 @@ class PageTreeTransformer {
 	}
 
 	function replaceTwitter($textnode) {
-		$offset = 0;
-		if (preg_match_all('~@[a-zA-Z0-9_]+~', $textnode->nodeValue, $matches, PREG_OFFSET_CAPTURE)) {
-			foreach ($matches[0] as $match) {
-				$start    = $match[1];
-				$end      = $start + strlen($match[0]);
-				$twitter  = DtDOMUtil::splitText($textnode, $start, $end, $offset);
-				if ($twitter->parentNode) {
-					$a = $textnode->ownerDocument->createElement('a');
-					$a->setAttribute('href', 'https://twitter.com/' . substr($match[0], 1));
-					$twitter->parentNode->replaceChild($a, $twitter);
-					$a->appendChild($twitter);
+		foreach (DtDOMUtil::matchTextByRegex('~@[a-zA-Z0-9_]+~', $textnode) as $match) {
+			$twitter = $match['node'];
+			$a = $textnode->ownerDocument->createElement('a');
+			$a->setAttribute('href', 'https://twitter.com/' . substr($match[0][0], 1));
+			$twitter->parentNode->replaceChild($a, $twitter);
+			$a->appendChild($twitter);
+		}
+	}
+
+	function replaceImageLink($textnode) {
+		foreach (DtDOMUtil::matchTextByRegex('~\[\[Image:([^\s\]]+)(?: (.*?))?\]\]~i', $textnode) as $match) {
+			$image = $match['node'];
+			$img = $textnode->ownerDocument->createElement('img');
+			$img->setAttribute('src', IMAGE_URL($match[1][0]));
+			$img->setAttribute('alt', empty($match[2][0]) ? basename($match[1][0]) : $match[2][0]);
+			$image->parentNode->replaceChild($img, $image);
+		}
+	}
+
+
+	function replaceWikiLink($open, $close, $match) {
+		$frag = $open->ownerDocument->createDocumentFragment();
+		for ($node = $open->nextSibling; $node && $node !== $close; $node = $next) {
+			$next = $node->nextSibling;
+			$frag->appendChild($node);
+		}
+		$title = $match[1][0];
+		$replacement = $frag;
+		if (preg_match('~^[a-zA-Z0-9-#/\.]+$~', $title)) {
+			$page = $this->page->navigate($title);
+			if ($page->valid()) {
+				$replacement = $open->ownerDocument->createElement('a');
+				$replacement->setAttribute('href', $page->href());
+				$empty = true;
+				foreach ($frag->childNodes as $v) {
+					if ($v->nodeType == XML_TEXT_NODE) {
+						if (!$v->isWhitespaceInElementContent()) {
+							$empty = false;
+							break;
+						}
+					} else if ($v->nodeType == XML_ELEMENT_NODE) {
+						$empty = false;
+						break;
+					}
 				}
+				if ($empty) {
+					$frag->appendChild($open->ownerDocument->createTextNode($title));
+				}
+				$replacement->appendChild($frag);
+			}
+		}
+		$close->parentNode->insertBefore($replacement, $close);
+		if ($replacement !== $frag) {
+			$open->parentNode->removeChild($open);
+			$close->parentNode->removeChild($close);
+		}
+	}
+
+	function findReplaceWikiLink($match) {
+		$open = $match['node'];
+		for ($node = $open->nextSibling; $node; $node = $node->nextSibling) {
+			if ($node->nodeType == XML_TEXT_NODE && $node->nodeValue == ']]') {
+				$this->replaceWikiLink($open, $node, $match);
+				break;
 			}
 		}
 	}
 
-	function transformProc() {
-		foreach ($this->query('//*[self::h1 or self::h2 or self::h3 or self::h4 or self::h5 or self::h6]') as $node) {
-			$node->setAttribute('id', $this->id($node));
+	function wikiLinks() {
+		$open = array();
+		foreach ($this->query('//text()[not(ancestor::a or ancestor::pre or ancestor::code)]') as $node) {
+			$temp = DtDOMUtil::matchTextByRegex('~\[\[([^\s\]]+)~', $node);
+			$open = array_merge($open, $temp);
 		}
+		foreach ($this->query('//text()[not(ancestor::a or ancestor::pre or ancestor::code)]') as $node) {
+			DtDOMUtil::matchTextByRegex('~\]\]~', $node);
+		}
+		foreach ($open as $match) {
+			$this->findReplaceWikiLink($match);
+		}
+		$this->doc->normalize();
+	}
+
+	function transformProc() {
+		
+		// add classes and ID based on the text it found
 		foreach ($this->query('//*[text()]') as $node) {
 			$this->processClassId($node);
 		}
+
+		// assign ID to headings
+		foreach ($this->query('//*[self::h1 or self::h2 or self::h3 or self::h4 or self::h5 or self::h6]') as $node) {
+			$node->setAttribute('id', $this->id($node));
+		}
+
+		// create table of contents
 		foreach ($this->query('//div[@id="dtdocs-toc"][@class="toc"]') as $node) {
 			$this->createToc($node);
 			break;
 		}
+
+		// add external links
 		foreach ($this->query('//a') as $node) {
 			if (!$node->hasAttribute('class')) {
 				$node->setAttribute('class', 'external');
 			}
 		}
-		foreach ($this->query('//text()[not(ancestor::a)]') as $node) {
+
+		// add class to image containers
+		foreach ($this->query('//*[self::p or self::li][img[@class="image"][not(preceding-sibling::*)][not(following-sibling::*)]]') as $node) {
+			if (!$node->hasAttribute('class')) {
+				$node->setAttribute('class', 'image-container');
+			}
+		}
+
+		// replace twitter links
+		foreach ($this->query('//text()[not(ancestor::a or ancestor::pre or ancestor::code)]') as $node) {
 			$this->replaceTwitter($node);
 		}
+		$this->doc->normalize();
+
+		// replace image links
+		foreach ($this->query('//text()[not(ancestor::a or ancestor::pre or ancestor::code)]') as $node) {
+			$this->replaceImageLink($node);
+		}
+		$this->doc->normalize();
+
+		// replace wiki links
+		$this->wikiLinks();
+
 	}
 
 	function transform($text) {
@@ -420,8 +528,6 @@ class PageContentRenderer {
 	function process($text) {
 		
 		// simple processing!
-		$text = preg_replace_callback('~\[\[([a-zA-Z0-9\.#-/]+)(?:\s+(.*?))?\]\]~si', array($this, 'cb_link'), $text);
-		$text = preg_replace_callback('~\[\[Image:([^\s\]]+)(?:\s+(.*?))?\]\]~si', array($this, 'cb_image'), $text);
 		$text = preg_replace_callback('~\|([^\s\|]+)\|~si', array($this, 'cb_key'), $text);
 		$text = str_replace('{{toc}}', '<div id="dtdocs-toc" class="toc"></div>', $text);
 		$text = str_replace('{{beta}}', '<span class="beta">BETA</span>', $text);

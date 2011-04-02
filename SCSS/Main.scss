@@ -26,7 +26,8 @@
 .theme-base {
 	@extend .dt-typography;
 	body {
-		font: 10pt/1.8 Georgia, Verdana, Tahoma, sans-serif;
+		line-height: 1.8;
+		font-size: 12.5pt;
 		text-align: center;
 		margin: 0;
 		padding: 0;
@@ -58,36 +59,76 @@
 	#dtdocs-footer {
 		padding: 20px;
 	}
-	.toc {
-		padding: 2ex 0.5ex;
-		width: 50%;
-		li {
-			line-height: 1.5;
+	#dtdocs-content {
+		.toc {
+			padding: 2ex 0.5ex;
+			width: 50%;
+			li {
+				line-height: 1.5;
+			}
+			ul, ol, li {
+				margin-top: 0.8ex;
+				margin-bottom: 0.8ex;
+			}
 		}
-		ul, ol, li {
-			margin-top: 0.8ex;
-			margin-bottom: 0.8ex;
+		.welcome {
+			text-align: center;
 		}
-	}
-	.caption {
-		text-align: center;
-		font-style: italic;
-		font-size: 0.9em;
-		margin-top: -1em;
-	}
-	h1 {
-		font: bold 30pt/1.2 Free Sans, FreeSans, Helvetica, Arial, sans-serif;
-		text-align: center;
-	}
-	h2 {
-		font-size: 16pt;
-	}
-	pre, code {
-		font-family: Consolas, Monaco, Droid Sans Mono, Bitstream Vera Sans Mono, DejaVu Sans Mono, Courier New, sans-serif;
-	}
-	table {
-		margin: 0 auto;
-		border-collapse: collapse;
+		.caption {
+			text-align: center;
+			font-style: italic;
+			font-size: 0.9em;
+			margin-top: -1em;
+		}
+		h1 {
+			font: bold 30pt/1.2 Free Sans, FreeSans, Helvetica, Arial, sans-serif;
+			text-align: center;
+		}
+		h2 {
+			font-size: 16pt;
+		}
+		pre, code {
+			font-family: Consolas, Monaco, Droid Sans Mono, Bitstream Vera Sans Mono, DejaVu Sans Mono, Courier New, sans-serif;
+		}
+		table {
+			margin: 0 auto;
+			border-collapse: collapse;
+		}
+		.smalltoc {
+			ul {
+				display: block;
+				list-style: none;
+				font-size: 0.9em;
+				line-height: 1.4;
+				&, li {
+					margin: 0; padding: 0;
+				}
+				li {
+					display: inline;
+					&, a {
+						text-decoration: none;
+					}
+					a {
+						white-space: nowrap;
+					}
+					margin-right: 10px;
+				}
+			}
+		}
+		.outline {
+			font-size: 1.4em;
+			ul {
+				font-size: 0.9em;
+			}
+			.smalltoc {
+				ul {
+					font-size: (1em / 1.4);
+				}
+			}
+			li {
+				margin-bottom: 1em;
+			}
+		}
 	}
 }
 

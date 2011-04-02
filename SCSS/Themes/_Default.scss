@@ -9,6 +9,7 @@
 		color: #333;
 		text-shadow: 0 1px 0 #fff;
 		font-size: 12.5pt;
+		font-family: Georgia, Verdana, Tahoma, sans-serif;
 	}
 	a {
 		color: $link;
@@ -23,16 +24,23 @@
 			color: mix($link, #8b8685, 25%);
 		}
 	}
-	.toc {
-		background: #EDE9E5;
-		border: 1px solid #CFCBC6;
-	}
-	h1 {
-		color: #8b8685;
-	}
-	h2 {
-		color: #9053A7;
-		border-top: 2px solid mix($bg, #fff, 40%);
+	#dtdocs-content {
+		.toc {
+			background: #EDE9E5;
+			border: 1px solid #CFCBC6;
+		}
+		h1 {
+			color: #8b8685;
+		}
+		h2 {
+			color: #9053A7;
+			border-top: 2px solid mix($bg, #fff, 40%);
+		}
+		.smalltoc {
+			ul li a {
+				color: mix(#8b8685, #555, 50%);
+			}
+		}
 	}
 }
 
